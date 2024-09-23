@@ -1,0 +1,48 @@
+name: Autograding Tests
+
+on:
+  push:
+  workflow_dispatch:
+  repository_dispatch:
+
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run cleanPoints test
+      id: cleanpoints
+      run: |
+        npm test -- -t "cleanPoints Function"
+      continue-on-error: true 
+    - name: Store cleanPoints result
+      run: echo "CLEANPOINTS_RESULT=${{ steps.cleanpoints.outcome }}" >> $GITHUB_ENV
+
+    - name: Run printPoint test
+      id: printpoint
+      run: |
+        npm test -- -t "printPoint Function"
+      continue-on-error: true 
+    - name: Store printPoint result
+      run: echo "PRINTPOINT_RESULT=${{ steps.printpoint.outcome }}" >> $GITHUB_ENV
+
+    - name: Display Results
+      run: |
+        echo "CleanPoints Test Result: ${{ steps.cleanpoints.outcome }}"
+        echo "PrintPoint Test Result: ${{ steps.printpoint.outcome }}"
