@@ -68,3 +68,4 @@ for () // create a loop that iterates over the elements of the cleaned array
     
 }
 
+module.exports = { cleanPoints, printPoint };
