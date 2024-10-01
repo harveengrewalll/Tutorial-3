@@ -8,31 +8,45 @@
 let cleanPoints = function (points)
 {
         
-    for (let point /* complete this part*/) // this loop iterates over the elements of the array
+    for (let point of points) // this loop iterates over the elements (each point) of the array
     {
         /**
          * A Flag is a boolean variable that you can use to indicate whether a condition is  met (e.g. found or not found)
           * in one part of the code in order to decide on an action in another part of the code.
         */
 
-
         // the following three variables are flags to check the existance of the three dimentions in the object
         let xFound=false; 
         let yFound=false;
         let zFound=false;   
         for (let prop in point) // This loop iterates over the properties of each point object
-        {
             /**
              * Create a conditional block that checks the name of the property
              * if the name is either x, y or z the corresponding flag should be set to true
              * otherwise the property should be deleted from the object.
              */
-            
+        if (prop === 'x') { 
+            xFound = true;  
+        } else if (prop === "y") {
+            yFound = true;
+        } else if (prop === 'z') {
+            zFound = true;
+        } else {
+            delete point[prop];
         }
-
 
         // Now use the flags to check wether the (x, y and z) properties where found
         // if any of them was not found then add it to the object with a value 0
+
+        if (!xFound) {
+            point.x = 0;
+        }
+        if (!yFound) {
+            point.y = 0;
+        } 
+        if (!zFound) {
+            point.z = 0;
+        }
        
     }
 
@@ -58,14 +72,14 @@ function printPoint() // this function doesn't take any argument
 {
     // Expecting to be use with objects (one object at a time) that have x,y and z properties
     // print the corrdinates and thier values on the console.
-    console.log(`x = ${/* refer to the x property*/} , y = ${/* refer to the x property*/} , z = ${/* refer to the x property*/}`)
+    console.log(`x = ${points.x} , y = ${points.y} , z = ${points.z}`);
 }
 
-for () // create a loop that iterates over the elements of the cleaned array
-{
+for (let i = 0; i < points_cleaned.length; i++) {// create a loop that iterates over the elements of the cleaned array
     // Execute the printPoint function so that it would print the the point at the current element of the array
     // without changing the structures of the objects themselves. 
-    
+    points = points_cleaned[i];
+    printPoint (points_cleaned[i]);
 }
 
 module.exports = { cleanPoints, printPoint };
