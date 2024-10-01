@@ -79,7 +79,7 @@ for (let i = 0; i < points_cleaned.length; i++) {// create a loop that iterates 
     // Execute the printPoint function so that it would print the the point at the current element of the array
     // without changing the structures of the objects themselves. 
     points = points_cleaned[i];
-    printPoint (points_cleaned[i]);
+    printPoint();
 }
 
 module.exports = { cleanPoints, printPoint };
